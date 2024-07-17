@@ -1,0 +1,13 @@
+bat=~/.config/bat
+clangd/.clang-format=~/.clang-format
+fish/config.fish=~/.config/fish/config.fish
+fish/fish_variables=~/.config/fish/fish_variables
+git/.gitconfig=~/.gitconfig
+git/.gitignore=~/.gitignore
+kitty=~/.config/kitty
+libvirt=~/.config/libvirt
+nvim=~/.config/nvim
+nvim-lualine/riri.lua=~/.local/share/nvim/lazy/lualine.nvim/lua/lualine/themes/riri.lua
+scripts=~/scripts
+starship/starship.toml=~/.config/starship.toml
+sway=~/.config/sway

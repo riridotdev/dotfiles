@@ -1,0 +1,54 @@
+[user]
+	name = Ryan Lodge
+	email = 13948173+riridotdev@users.noreply.github.com
+
+[core]
+	autocrlf = input
+    excludeFiles = ~/.gitignore
+    pager = delta
+
+[interactive]
+    diffFilter = delta --color-only
+
+[delta]
+    navigate = true
+
+[diff]
+    colorMoved = default
+
+[init]
+	defaultBranch = main
+
+[push]
+    default = current
+    autoSetupRemote = true
+
+[pull]
+    rebase = true
+
+[merge]
+    conflictStyle = zdiff3
+
+[rebase]
+    autosquash = true
+
+[commit]
+    verbose = true
+
+[rerere]
+    enabled = true
+
+[submodule]
+    recurse = true
+
+[credential]
+	helper = cache
+[credential "https://github.com"]
+	helper = !gh auth git-credential
+[credential "https://gist.github.com"]
+	helper = !gh auth git-credential
+
+[alias]
+    stash-unstaged = "!git commit -m \"TEMP\"; git stash -u; git reset --soft HEAD^"
+    unstage = "!git reset HEAD --"
+

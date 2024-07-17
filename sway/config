@@ -1,0 +1,89 @@
+# Mod key
+set $mod Mod4
+
+# Vim directions
+set $left n
+set $down e
+set $up i
+set $right o
+
+# Start a terminal
+bindsym KP_Enter exec kitty -d=$(~/scripts/sway_get_pwd.sh)
+
+# Kill focused window
+bindsym Menu kill
+
+# Reload the configuration file
+bindsym $mod+Shift+c reload
+
+# Move your focus around
+bindsym KP_Left focus left
+bindsym KP_Begin focus down
+bindsym KP_Right focus up
+bindsym KP_Delete focus right
+bindsym KP_Home focus parent
+
+# Move the focused window with the same, but add shift
+bindsym Alt+KP_Left move left
+bindsym Alt+KP_Begin move down
+bindsym Alt+KP_Right move up
+bindsym Alt+KP_Delete move right
+
+# Switch to workspace
+bindsym $mod+KP_End workspace number 1
+bindsym $mod+KP_Down workspace number 2
+bindsym $mod+KP_Next workspace number 3
+bindsym $mod+KP_Left workspace number 4
+bindsym $mod+KP_Begin workspace number 5
+bindsym $mod+KP_Right workspace number 6
+bindsym $mod+KP_Home workspace number 7
+bindsym $mod+KP_Up workspace number 8
+bindsym $mod+KP_Prior workspace number 9
+
+# Move focused container to workspace
+bindsym $mod+Shift+KP_End move container to workspace number 1
+bindsym $mod+Shift+KP_Down move container to workspace number 2
+bindsym $mod+Shift+KP_Next move container to workspace number 3
+bindsym $mod+Shift+KP_Left move container to workspace number 4
+bindsym $mod+Shift+KP_Begin move container to workspace number 5
+bindsym $mod+Shift+KP_Right move container to workspace number 6
+bindsym $mod+Shift+KP_Home move container to workspace number 7
+bindsym $mod+Shift+KP_Up move container to workspace number 8
+bindsym $mod+Shift+KP_Prior move container to workspace number 9
+
+# Splits
+bindsym KP_End splith
+bindsym KP_Down splitv
+
+# Layouts
+bindsym KP_Up layout toggle split
+bindsym KP_Prior layout tabbed
+
+# Main display
+output DP-3 scale 2
+
+# External display scale settings
+output HDMI-A-1 scale 2
+
+# Clamshell mode settings
+set $laptop eDP-1
+bindswitch --reload --locked lid:on output $laptop disable
+bindswitch --reload --locked lid:off output $laptop enable
+
+# Border settings
+default_border pixel 2
+hide_edge_borders smart
+
+focus_wrapping no
+
+font Comic Code 8
+
+include /etc/sway/config.d/*
+
+input "type:keyboard" {
+    repeat_delay 200
+    repeat_rate 50
+}
+
+# Gammastep
+exec gammastep

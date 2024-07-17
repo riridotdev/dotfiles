@@ -1,0 +1,18 @@
+add_newline = true
+
+[aws]
+disabled = true
+
+[git_branch]
+disabled = false
+[git_commit]
+disabled = true
+[git_state]
+disabled = true
+[git_metrics]
+disabled = true
+[git_status]
+disabled = false
+
+[golang]
+disabled = false

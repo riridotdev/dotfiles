@@ -1,0 +1,31 @@
+BasedOnStyle: Chromium
+
+IndentWidth: 4
+
+AlignAfterOpenBracket: BlockIndent
+
+AlignConsecutiveAssignments:
+  Enabled: true
+
+AlignConsecutiveBitFields:
+  Enabled: true
+
+AlignConsecutiveDeclarations:
+  Enabled: true
+
+AlignEscapedNewlines: Left
+AlignTrailingComments: Always
+
+AllowShortBlocksOnASingleLine: Empty
+
+ColumnLimit: 80
+
+IncludeBlocks: Preserve
+
+InsertBraces: true
+
+PointerAlignment: Left
+
+QualifierAlignment: Left
+
+RemoveParentheses: ReturnStatement
