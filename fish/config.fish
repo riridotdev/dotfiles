@@ -87,7 +87,7 @@ function br
 end
 
 # Run Firefox
-alias firefox='swaymsg exec firefox; exit'
+alias fox='swaymsg exec firefox; exit'
 #Run Steam
 alias steam='swaymsg exec steam; exit'
 

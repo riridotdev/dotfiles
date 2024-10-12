@@ -8,7 +8,7 @@ set $up i
 set $right o
 
 # Start a terminal
-bindsym KP_Enter exec kitty -d=$(~/scripts/sway_get_pwd.sh)
+bindsym KP_Enter exec kitty -d $(~/scripts/sway_get_pwd.sh)
 
 # Kill focused window
 bindsym Menu kill
@@ -86,4 +86,4 @@ input "type:keyboard" {
 }
 
 # Gammastep
-exec gammastep
+exec gammastep -l 51:0

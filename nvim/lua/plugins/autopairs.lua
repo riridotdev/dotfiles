@@ -9,7 +9,7 @@ return {
     nvimpairs.setup({})
 
     nvimpairs.add_rules({
-      rule("<", ">")
+      rule("<", ">", "-html")
           :with_pair(cond.not_before_regex(" "))
     })
 

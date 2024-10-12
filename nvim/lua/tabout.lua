@@ -26,6 +26,30 @@ local tabout_types = {
   string = true,
   interpreted_string_literal = true,
   rune_literal = true,
+
+  -- c
+  cast_expression = true,
+  parenthesized_expression = true,
+  initializer_list = true,
+  field_declaration_list = true,
+  subscript_expression = true,
+  subscript_designator = true,
+  for_statement = true,
+  array_declarator = true,
+  string_literal = true,
+  macro_type_specifier = true,
+
+  -- python
+  type_parameter = true,
+
+  -- javascript
+  object = true,
+  for_in_statement = true,
+  array = true,
+  formal_parameters = true,
+
+  -- html
+  start_tag = true,
 }
 
 local list_type = {
@@ -42,6 +66,17 @@ local list_type = {
   arguments = true,
   variable_list = true,
   block = true,
+
+  -- c
+  translation_unit = true, -- root name
+  initializer_list = true,
+  field_declaration_list = true,
+  for_statement = true,
+
+  -- javascript
+  object = true,
+  array = true,
+  formal_parameters = true,
 }
 
 local function ahead_of_cursor(node, cursor)

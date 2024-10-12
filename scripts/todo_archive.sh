@@ -1,6 +1,6 @@
 #!/usr/bin/sh
 
--set e
+set e
 
 if [ ! -d ~/todo_archive ]; then
     mkdir ~/todo_archive
