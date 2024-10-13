@@ -4,5 +4,8 @@ set -e
 
 device_name=$(lsblk -l -o NAME,LABEL | grep '\sriri' | cut -f1 -d' ')
 
-sudo cryptsetup open /dev/${device_name} riri
+if [ ! -e /dev/mapper/riri ]; then
+    sudo cryptsetup open /dev/${device_name} riri
+fi
+
 sudo mount /dev/mapper/riri ~/mount/riri

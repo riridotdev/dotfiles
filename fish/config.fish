@@ -5,6 +5,7 @@ zoxide init fish | source
 set fish_greeting
 
 fish_add_path ~/.local/bin/
+fish_add_path ~/scripts
 
 export XDG_CONFIG_HOME="$HOME/.config"
 
