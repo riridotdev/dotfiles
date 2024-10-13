@@ -2,5 +2,10 @@
 
 set -e
 
-sudo umount ~/mount/riri
-sudo cryptsetup close riri
+if mount | grep /dev/mapper/riri &>/dev/null; then
+    sudo umount /dev/mapper/riri
+fi
+
+if [ -e /dev/mapper/riri ]; then
+    sudo cryptsetup close riri
+fi
