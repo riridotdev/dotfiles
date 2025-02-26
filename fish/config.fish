@@ -39,13 +39,13 @@ function gl
 end
 
 # List directory
-alias l='exa -l -a --icons --group-directories-first'
+alias l='eza -l -a --icons --group-directories-first'
 
 # List directory as tree
-alias lt='exa -l -a -T -L 2 --icons --git-ignore'
+alias lt='eza -l -a -T -L 2 --icons --git-ignore'
 
 # List directory as tree (all levels)
-alias lta='exa -l -a -T --icons --git-ignore'
+alias lta='eza -l -a -T --icons --git-ignore'
 
 
 ### File interactions
