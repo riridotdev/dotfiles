@@ -1,11 +1,12 @@
-starship init fish | source
-zoxide init fish | source
-
 # Disable default greeting message
 set fish_greeting
 
+fish_add_path /opt/homebrew/bin
 fish_add_path ~/.local/bin/
 fish_add_path ~/scripts
+
+starship init fish | source
+zoxide init fish | source
 
 export XDG_CONFIG_HOME="$HOME/.config"
 
