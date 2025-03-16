@@ -1,0 +1,64 @@
+after-login-command = []
+after-startup-command = []
+
+start-at-login = false
+
+enable-normalization-flatten-containers = true
+enable-normalization-opposite-orientation-for-nested-containers = true
+
+accordion-padding = 10
+
+default-root-container-layout = 'tiles'
+default-root-container-orientation = 'auto'
+
+on-focused-monitor-changed = ['move-mouse monitor-lazy-center']
+
+automatically-unhide-macos-hidden-apps = true
+
+[key-mapping]
+    preset = 'qwerty'
+
+[gaps]
+    inner.horizontal = 0
+    inner.vertical =   0
+    outer.left =       0
+    outer.bottom =     0
+    outer.top =        0
+    outer.right =      0
+
+[mode.main.binding]
+    keypad1 = 'layout vertical'
+    keypad2 = 'layout horizontal'
+
+    keypad9 = 'layout accordion'
+    keypad8 = 'layout tiles'
+
+    keypad4 = 'focus left'
+    keypad5 = 'focus down'
+    keypad6 = 'focus up'
+    keypadDecimalMark = 'focus right'
+
+    alt-keypad4 = 'move left'
+    alt-keypad2 = 'move down'
+    alt-keypad8 = 'move up'
+    alt-keypadDecimalMark = 'move right'
+
+    cmd-keypad1 = 'workspace 1'
+    cmd-keypad2 = 'workspace 2'
+    cmd-keypad3 = 'workspace 3'
+    cmd-keypad4 = 'workspace 4'
+    cmd-keypad5 = 'workspace 5'
+    cmd-keypad6 = 'workspace 6'
+    cmd-keypad7 = 'workspace 7'
+    cmd-keypad8 = 'workspace 8'
+    cmd-keypad9 = 'workspace 9'
+
+    cmd-shift-keypad1 = 'move-node-to-workspace 1'
+    cmd-shift-keypad2 = 'move-node-to-workspace 2'
+    cmd-shift-keypad3 = 'move-node-to-workspace 3'
+    cmd-shift-keypad4 = 'move-node-to-workspace 4'
+    cmd-shift-keypad5 = 'move-node-to-workspace 5'
+    cmd-shift-keypad6 = 'move-node-to-workspace 6'
+    cmd-shift-keypad7 = 'move-node-to-workspace 7'
+    cmd-shift-keypad8 = 'move-node-to-workspace 8'
+    cmd-shift-keypad9 = 'move-node-to-workspace 9'
