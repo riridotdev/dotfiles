@@ -88,10 +88,10 @@ function br
     swaymsg exec "nautilus -w $target_path"; exit
 end
 
-# Run Firefox
+# Launch application and replace current terminal window
 alias fox='swaymsg exec firefox; exit'
-#Run Steam
 alias steam='swaymsg exec steam; exit'
+alias discord='swaymsg exec discord; exit'
 
 # New directory go
 function ndg
