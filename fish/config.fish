@@ -132,11 +132,6 @@ alias get="http GET"
 alias post="http POST"
 
 
-### AWS
-# Local AWS
-alias laws="aws --endpoint-url=http://localhost:4566"
-
-
 ### Go
 # Go mod init
 alias gmi='go mod init github.com/riridotdev/(basename (pwd))'
