@@ -32,10 +32,10 @@ alias gbl='gb; l'
 
 # Go to directory and list
 function gl
-        g $argv
-        if test $status = 0
-                l
-        end
+    g $argv
+    if test $status = 0
+        l
+    end
 end
 
 # List directory
@@ -95,10 +95,10 @@ alias discord='swaymsg exec discord; exit'
 
 # New directory go
 function ndg
-        mkdir $argv
-        if test $status = 0
-                cd $argv
-        end
+    mkdir $argv
+    if test $status = 0
+        cd $argv
+    end
 end
 
 # Process link
@@ -115,13 +115,13 @@ end
 
 # Backup file
 function bu
-        if test $argv[1]
-                set date (date -I)
-                cp -R $argv[1] $argv[1]_backup_$date
-                echo "Backup created: $argv[1]_backup_$date"
-        else
-                echo -e "usage:\n\tpbu [target]"
-        end
+    if test $argv[1]
+        set date (date -I)
+        cp -R $argv[1] $argv[1]_backup_$date
+        echo "Backup created: $argv[1]_backup_$date"
+    else
+        echo -e "usage:\n\tpbu [target]"
+    end
 end
 
 
@@ -173,41 +173,41 @@ alias gbprune='git branch | rg -v "(^\*|master|main)" | xargs git branch -D'
 
 # Git checkout
 function gco
-        if test $argv
-          git checkout $argv
-        else
-                echo -e "usage:\n\tgco [ref]"
-        end
+    if test "$argv"
+        git checkout $argv
+    else
+        echo -e "usage:\n\tgco [ref]"
+    end
 end
 
 # Git branch create
 function gbc
-        if test $argv
-                git branch $argv
-        else
-                echo "No branch name provided, use 'gbc \"branch-name\"'"
-                echo -e "usage:\n\tgbc [name]"
-        end
+    if test $argv
+        git branch $argv
+    else
+        echo "No branch name provided, use 'gbc \"branch-name\"'"
+        echo -e "usage:\n\tgbc [name]"
+    end
 end
 
 # Git branch checkout
 function gbco
-        if test $argv
-                git checkout -b $argv
-        else
-                echo -e "usage:\n\tgbco [branch]"
-        end
+    if test $argv
+        git checkout -b $argv
+    else
+        echo -e "usage:\n\tgbco [branch]"
+    end
 end
 
 # Github create repo
 function ghcr
-        if test $argv
-            set reponame $argv
-        else
-            set reponame (basename (pwd))
-        end
-        gh repo create $reponame --private --source=.
-        git push --set-upstream origin main
+    if test $argv
+        set reponame $argv
+    else
+        set reponame (basename (pwd))
+    end
+    gh repo create $reponame --private --source=.
+    git push --set-upstream origin main
 end
 
 
