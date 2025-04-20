@@ -67,6 +67,7 @@ install_list=(
 	# Language Servers and Tools
 	"gopls"
 	"lua-language-server"
+	"pyright"
 	"shellcheck"
 	"shfmt"
 	"typescript-language-server"

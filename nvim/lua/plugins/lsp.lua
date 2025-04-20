@@ -10,6 +10,7 @@ return {
     lspconfig.clangd.setup({})
     lspconfig.ts_ls.setup({})
     lspconfig.terraformls.setup({})
+    lspconfig.pyright.setup({})
 
     vim.api.nvim_create_autocmd("LspAttach", {
       group = vim.api.nvim_create_augroup('UserLspConfig', {}),
