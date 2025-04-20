@@ -8,7 +8,7 @@ return {
     lspconfig.lua_ls.setup({})
     lspconfig.gopls.setup({})
     lspconfig.clangd.setup({})
-    lspconfig.tsserver.setup({})
+    lspconfig.ts_ls.setup({})
     lspconfig.terraformls.setup({})
 
     vim.api.nvim_create_autocmd("LspAttach", {
