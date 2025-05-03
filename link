@@ -1,0 +1,48 @@
+#!/usr/bin/env bash
+
+set -e
+
+links=(
+    "bat:~/.config/bat"
+    "fish/config.fish:~/.config/fish/config.fish"
+    "fish/fish_variables:~/.config/fish/fish_variables"
+    "git/.gitconfig:~/.gitconfig"
+    "git/.gitignore:~/.gitignore"
+    "gtk-3.0:~/.config/gtk-3.0"
+    "libvirt:~/.config/libvirt"
+    "nvim:~/.config/nvim"
+    "scripts:~/scripts"
+    "x11/.xinitrc:~/.xinitrc"
+)
+
+cd $(dirname $(realpath $0))
+
+for link in "${links[@]}"; do
+    link_parts=(${link//:/ })
+
+    link_parts[0]=$(realpath "${link_parts[0]}")
+    link_parts[1]="${link_parts[1]/\~/$HOME}"
+    
+    target_dirname=$(dirname "${link_parts[1]}")
+    if [ ! -d "${target_dirname}" ]; then
+        mkdir -p "${target_dirname}"
+    fi
+
+    if [ -L "${link_parts[1]}" ]; then
+        if [ $(readlink "${link_parts[1]}") = "${link_parts[0]}" ]; then
+            echo "${link_parts[1]} -> ${link_parts[0]} already exists"
+            continue
+	fi
+
+	echo "conflicting link found at ${link_parts[1]}" >&2
+	exit 1
+    fi
+
+    if [ -e "${link_parts[1]}" ]; then
+        echo "conflicting file found at ${link_parts[1]}" >&2
+	exit 1
+    fi
+
+    echo "linking ${link_parts[1]} to ${link_parts[0]}"
+    ln -sn "${link_parts[0]}" "${link_parts[1]}"
+done

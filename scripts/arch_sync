@@ -53,6 +53,18 @@ if [ ! -f "$wireless_network_file_path" ]; then
 	systemctl restart systemd-networkd
 fi
 
+if ! grep "nameserver 127.0.0.53" /etc/resolv.conf &>/dev/null; then
+	echo "nameserver 127.0.0.53" >>/etc/resolv.conf
+fi
+
+if [ -n "${ARCH_HOSTNAME}" ]; then
+	echo "${ARCH_HOSTNAME}" >/etc/hostname
+fi
+
+cat <<-EOF >/etc/xdg/user-dirs.defaults
+	DOWNLOAD=downloads
+EOF
+
 install_list=(
 	# Language Compilers and Runtimes
 	"clang"
@@ -90,9 +102,6 @@ install_list=(
 	# Shell and Terminal
 	"dash"
 	"fish"
-	"fisher"
-	"kitty"
-	"starship"
 
 	# Editors
 	"neovim"
@@ -152,15 +161,10 @@ install_list=(
 	"github-cli"
 
 	# Graphical
-	"eog"
-	"gammastep"
-	"nautilus"
-	"sway"
-	"wev"
-	"wl-clipboard"
-	"xorg-xwayland"
-	"zathura"
-	"zathura-pdf-poppler"
+	"xorg-server"
+	"xorg-xev"
+	"xorg-xinit"
+	"xorg-xrandr"
 
 	# Networking
 	"bind"
@@ -183,11 +187,6 @@ install_list=(
 	"pulseaudio"
 	"xdg-desktop-portal"
 	"xdg-desktop-portal-wlr"
-
-	# Fonts
-	"noto-fonts"
-	"ttf-dejavu"
-	"ttf-hack-nerd"
 
 	# Libraries
 	"glfw"
@@ -220,6 +219,19 @@ if [ "$(realpath /usr/bin/sh)" != "$(which dash)" ]; then
 	ln -snf "$(which dash)" /usr/bin/sh
 fi
 
+if ! grep "git" /etc/group; then
+	groupadd git
+fi
+
+if [ ! -d /git ]; then
+	mkdir /git
+	chgrp git /git
+fi
+if [ ! -d /git/riri ]; then
+	mkdir /git/riri
+	chgrp git /git/riri
+fi
+
 sudoers_line="%wheel ALL=(ALL:ALL) ALL"
 sed -i "s/#\s*$sudoers_line/$sudoers_line/" /etc/sudoers
 if ! grep -x "$sudoers_line" /etc/sudoers; then
@@ -227,61 +239,48 @@ if ! grep -x "$sudoers_line" /etc/sudoers; then
 fi
 
 if ! id ryan; then
-	useradd -m -G wheel -s "$(which bash)" ryan
+	useradd -m -s "$(which bash)" ryan
 fi
 
 groups=(
 	"docker"
 	"libvirt"
 	"wireshark"
+	"git"
+	"wheel"
 )
 for group in "${groups[@]}"; do
-	if ! groups ryan | grep -w "${group}"; then
+	if ! groups ryan | grep -w "${group}" &>/dev/null; then
 		usermod ryan -aG "${group}"
 	fi
 done
 
-su ryan <<'EOF'
-default_dirs=(
-    "~/dev/temp"
-    "~/dev/riridotdev"
-
-    "~/mount"
-)
-
-for dir in "${default_dirs[@]}"; do
-    dir="${dir/\~/$HOME}"
-    if [ ! -d "${dir}" ]; then
-        mkdir -p "${dir}"
-    fi
-done
-
-github_dir=~/dev/riridotdev
-github_url=https://github.com/riridotdev
-
-if [ ! -d "$github_dir" ]; then
-    mkdir -p "$github_dir"
+if [ ! -d /git/github/riridotdev/dotfiles ]; then
+	git clone https://github.com/riridotdev/dotfiles.git /git/github/riridotdev/dotfiles
+	chgrp -R git /git/github/riridotdev/dotfiles
 fi
 
-if [ ! -d "$github_dir/dotfiles" ]; then
-    git clone "$github_url/dotfiles.git" "$github_dir/dotfiles"
+if [ ! -d /git/suckless/dwm ]; then
+	git clone git://git.suckless.org/dwm /git/suckless/dwm
+	chgrp -R git /git/suckless/dwm
+	ln -sn /git/github/riridotdev/dotfiles/dwm/config.h /git/suckless/dwm/config.h
+	pushd /git/suckless/dwm
+	make install
+	popd
+fi
+if [ ! -d /git/suckless/st ]; then
+	git clone git://git.suckless.org/st /git/suckless/st
+	chgrp -R git /git/suckless/st
+	ln -sn /git/github/riridotdev/dotfiles/st/config.h /git/suckless/st/config.h
+	pushd /git/suckless/st
+	make install
+	popd
 fi
 
-if [ ! -d "$github_dir/sto" ]; then
-    git clone "$github_url/sto.git" "$github_dir/sto"
-
-    if [ ! -d ~/.local/bin ]; then
-        mkdir -p ~/.local/bin
-    fi
-
-    ln -sn "$github_dir/sto/sto.sh" ~/.local/bin/sto
-
-    ~/.local/bin/sto apply "$github_dir/dotfiles"
+if [ ! -f /usr/share/fonts/local/TamzenForPowerline10x20r ]; then
+	curl -L https://github.com/sunaku/tamzen-font/archive/refs/tags/Tamzen-1.11.6.tar.gz | tar xz -C /tmp
+	cp -r /tmp/tamzen-font-Tamzen-1.11.6/bdf/. /usr/share/fonts/local
 fi
 
-if ! fish -c "fisher list | grep -w jorgebucaran/autopair.fish"; then
-    fish -c "fisher install jorgebucaran/autopair.fish"
-fi
-
-bat cache -b
-EOF
+su ryan -c '/git/github/riridotdev/dotfiles/link'
+su ryan -c 'bat cache -b'

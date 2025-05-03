@@ -8,47 +8,6 @@ return {
     local cmp_autopairs = require("nvim-autopairs.completion.cmp")
 
     local border = { "┌", "─", "┐", "│", "┘", "─", "└", "│" }
-    local icons = {
-      Array         = "",
-      Boolean       = "󰨙",
-      Class         = "",
-      Codeium       = "󰘦",
-      Color         = "",
-      Control       = "",
-      Collapsed     = "",
-      Constant      = "󰏿",
-      Constructor   = "",
-      Copilot       = "",
-      Enum          = "",
-      EnumMember    = "",
-      Event         = "",
-      Field         = "",
-      File          = "",
-      Folder        = "",
-      Function      = "󰊕",
-      Interface     = "",
-      Key           = "",
-      Keyword       = "",
-      Method        = "󰊕",
-      Module        = "",
-      Namespace     = "󰦮",
-      Null          = "",
-      Number        = "󰎠",
-      Object        = "",
-      Operator      = "",
-      Package       = "",
-      Property      = "",
-      Reference     = "",
-      Snippet       = "",
-      String        = "",
-      Struct        = "󰆼",
-      TabNine       = "󰏚",
-      Text          = "",
-      TypeParameter = "",
-      Unit          = "",
-      Value         = "",
-      Variable      = "󰀫",
-    }
 
     cmp.setup({
       preselect = cmp.PreselectMode.None,
@@ -68,11 +27,6 @@ return {
 
       formatting = {
         fields = { "kind", "abbr", "menu" },
-        format = function(_, vim_item)
-          vim_item.kind = (icons[vim_item.kind] or " ")
-          vim_item.menu = ""
-          return vim_item
-        end
       },
 
       mapping = {

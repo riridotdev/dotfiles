@@ -2,7 +2,6 @@ return {
   "nvim-telescope/telescope.nvim",
   dependencies = {
     "nvim-lua/plenary.nvim",
-    "nvim-tree/nvim-web-devicons",
     "nvim-telescope/telescope-file-browser.nvim",
   },
   config = function()
@@ -37,9 +36,8 @@ return {
         layout_strategy = "vertical",
         borderchars = { "─", "│", "─", "│", "┌", "┐", "┘", "└" },
         path_display = { "smart" },
-        color_devicons = true,
-        prompt_prefix = "  ",
-        selection_caret = " ",
+        prompt_prefix = " > ",
+        selection_caret = " > ",
         get_status_text = function(self)
           local ww = #(self:get_multi_selection())
           local xx = (self.stats.processed or 0) - (self.stats.filtered or 0)
@@ -57,6 +55,7 @@ return {
       pickers = {
         find_files = {
           hidden = false,
+          disable_devicons = true,
         },
         git_bcommits = {
           mappings = {
@@ -74,6 +73,7 @@ return {
           files = true,
           select_buffer = false,
           hijack_netrw = true,
+          disable_devicons = true,
           mappings = {
             ['i'] = {
               ['<A-n>'] = telescope.extensions.file_browser.actions.create,

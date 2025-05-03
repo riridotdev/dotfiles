@@ -52,11 +52,11 @@ vim.keymap.set('n', '<A-O>', '<C-w>v')       -- Split pane right
 local function closePane()
   local wins = vim.api.nvim_list_wins()
   if #wins > 1 then
-    vim.cmd('wincmd c')
+    vim.cmd('wincmd q')
   else
     vim.cmd('qa!')
   end
 end
 
-vim.keymap.set('n', '<C-A-w>', closePane)           -- Close current pane
+vim.keymap.set('n', '<C-w>', closePane, { nowait = true })           -- Close current pane
 vim.keymap.set('n', '<Esc>', '<Cmd>nohlsearch<CR>') -- Cancel search
