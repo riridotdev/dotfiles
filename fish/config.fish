@@ -1,11 +1,13 @@
 # Disable default greeting message
 set fish_greeting
 
-fish_add_path /opt/homebrew/bin
+function fish_prompt
+    echo -e "\n"(set_color -o brcyan)(string replace $HOME \~ $PWD)(set_color normal)" on "(set_color -o bryellow)(prompt_hostname)(set_color normal)"\n"$USER" > "
+end
+
 fish_add_path ~/.local/bin/
 fish_add_path ~/scripts
 
-starship init fish | source
 zoxide init fish | source
 
 export XDG_CONFIG_HOME="$HOME/.config"
@@ -21,31 +23,17 @@ alias g='z'
 # Go up directory
 alias gu='cd ..'
 
-# Go up directory and list
-alias gul='gu; l'
-
 # Go back
 alias gb='cd -'
 
-# Go back and list directory
-alias gbl='gb; l'
-
-# Go to directory and list
-function gl
-    g $argv
-    if test $status = 0
-        l
-    end
-end
-
 # List directory
-alias l='eza -l -a --icons --group-directories-first'
+alias l='eza -la --group-directories-first'
 
 # List directory as tree
-alias lt='eza -l -a -T -L 2 --icons --git-ignore'
+alias lt='eza -la -T -L 2 --git-ignore'
 
 # List directory as tree (all levels)
-alias lta='eza -l -a -T --icons --git-ignore'
+alias lta='eza -la -T --git-ignore'
 
 
 ### File interactions
@@ -59,39 +47,7 @@ alias e='nvim'
 alias n='touch'
 
 # New directory
-alias nd='mkdir'
-
-# Find files
-alias f='fd --strip-cwd-prefix --hidden --exclude .git | fzf --preview \'bat --color=always {}\' --preview-window \'~5\''
-
-# Copy
-alias copy='wl-copy'
-
-# Paste
-alias paste='wl-paste'
-
-# Open in File Browser
-function open
-    set target_path $argv
-    if not string match -q "/*" $target_path
-        set target_path $PWD/$target_path
-    end
-    swaymsg exec "nautilus -w $target_path"
-end
-
-# Replace current terminal with File Browser
-function br
-    set target_path $argv
-    if not string match -q "/*" $target_path
-        set target_path $PWD/$target_path
-    end
-    swaymsg exec "nautilus -w $target_path"; exit
-end
-
-# Launch application and replace current terminal window
-alias fox='swaymsg exec firefox; exit'
-alias steam='swaymsg exec steam; exit'
-alias discord='swaymsg exec discord; exit'
+alias nd='mkdir -p'
 
 # New directory go
 function ndg
@@ -101,8 +57,11 @@ function ndg
     end
 end
 
-# Process link
-function plink
+# Launch application and replace current terminal window
+alias fox='swaymsg exec firefox; exit'
+
+# Binary link
+function blink
     if test (count $argv) -lt 1
         echo -e "usage:\n\tplink target [name]"
         return
@@ -231,3 +190,33 @@ end
 ### Fish
 # Close window (cmd + w)
 bind \e\cW 'exit'
+
+
+bind backspace _autopair_delete
+
+set --global _autopair_pairs "()" "[]" "{}" '""' "''"
+
+for pair in $_autopair_pairs
+    set --local pair_left (string sub --length 1 $pair)
+    set --local pair_right (string sub --start 2 --length 1 $pair)
+
+    bind $pair_left "_autopair \\$pair_left \\$pair_right"
+end
+
+function _autopair --argument-names left right
+    commandline --insert $left
+    set --local cursor_pos (commandline --cursor)
+    commandline --insert $right
+    commandline --cursor $cursor_pos
+end
+
+function _autopair_delete
+    set --local cursor_pos (commandline --cursor)
+    set --local buffer (commandline)
+
+    if test $cursor_pos != 0 && contains (string sub --start=$cursor_pos --length=2 "$buffer") $_autopair_pairs
+        commandline --function delete-char
+    end
+
+    commandline --function backward-delete-char
+end
