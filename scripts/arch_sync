@@ -219,19 +219,6 @@ if [ "$(realpath /usr/bin/sh)" != "$(which dash)" ]; then
 	ln -snf "$(which dash)" /usr/bin/sh
 fi
 
-if ! grep "git" /etc/group; then
-	groupadd git
-fi
-
-if [ ! -d /git ]; then
-	mkdir /git
-	chgrp git /git
-fi
-if [ ! -d /git/riri ]; then
-	mkdir /git/riri
-	chgrp git /git/riri
-fi
-
 sudoers_line="%wheel ALL=(ALL:ALL) ALL"
 sed -i "s/#\s*$sudoers_line/$sudoers_line/" /etc/sudoers
 if ! grep -x "$sudoers_line" /etc/sudoers; then
@@ -246,7 +233,6 @@ groups=(
 	"docker"
 	"libvirt"
 	"wireshark"
-	"git"
 	"wheel"
 )
 for group in "${groups[@]}"; do
@@ -255,32 +241,49 @@ for group in "${groups[@]}"; do
 	fi
 done
 
-if [ ! -d /git/github/riridotdev/dotfiles ]; then
-	git clone https://github.com/riridotdev/dotfiles.git /git/github/riridotdev/dotfiles
-	chgrp -R git /git/github/riridotdev/dotfiles
+su ryan <<'EOF'
+default_dirs=(
+    "~/dev"
+    "~/git"
+    "~/mount"
+)
+
+for dir in "${default_dirs[@]}"; do
+    dir="${dir/\~/$HOME}"
+    if [ ! -d "${dir}" ]; then
+        mkdir -p "${dir}"
+    fi
+done
+
+git_repos=(
+    "github/riridotdev/dotfiles=https://github.com/riridotdev/dotfiles.git"
+    "github/riridotdev/st=https://github.com/riridotdev/st.git"
+    "suckless/dwm=git://git.suckless.org/dwm"
+)
+
+for git_repo in "${git_repos[@]}"; do
+    git_repo_parts=(${git_repo/=/ })
+    
+    git_repo_path="${HOME}/git/${git_repo_parts[0]}"
+    if [ ! -d "${git_repo_path}" ]; then
+        git clone "${git_repo_parts[1]}" "${git_repo_path}"
+    fi
+done
+
+"${HOME}"/git/github/riridotdev/dotfiles/link
+
+bat cache -b
+EOF
+
+if [ ! -f /usr/local/bin/dwm ]; then
+	make -C "/home/ryan/git/suckless/dwm" install
 fi
 
-if [ ! -d /git/suckless/dwm ]; then
-	git clone git://git.suckless.org/dwm /git/suckless/dwm
-	chgrp -R git /git/suckless/dwm
-	ln -sn /git/github/riridotdev/dotfiles/dwm/config.h /git/suckless/dwm/config.h
-	pushd /git/suckless/dwm
-	make install
-	popd
-fi
-if [ ! -d /git/suckless/st ]; then
-	git clone git://git.suckless.org/st /git/suckless/st
-	chgrp -R git /git/suckless/st
-	ln -sn /git/github/riridotdev/dotfiles/st/config.h /git/suckless/st/config.h
-	pushd /git/suckless/st
-	make install
-	popd
+if [ ! -f /usr/local/bin/st ]; then
+	make -C "/home/ryan/git/github/riridotdev/st" install
 fi
 
 if [ ! -f /usr/share/fonts/local/TamzenForPowerline10x20r ]; then
 	curl -L https://github.com/sunaku/tamzen-font/archive/refs/tags/Tamzen-1.11.6.tar.gz | tar xz -C /tmp
 	cp -r /tmp/tamzen-font-Tamzen-1.11.6/bdf/. /usr/share/fonts/local
 fi
-
-su ryan -c '/git/github/riridotdev/dotfiles/link'
-su ryan -c 'bat cache -b'
