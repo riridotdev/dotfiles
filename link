@@ -15,6 +15,7 @@ links=(
 	"scripts:~/scripts"
 	"st/config.h:~/git/github/riridotdev/st/config.h"
 	"x11/.xinitrc:~/.xinitrc"
+    "clangd/.clang-format:~/.clang-format"
 )
 
 cd "$(dirname "$(realpath "$0")")"
