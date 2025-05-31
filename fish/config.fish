@@ -58,7 +58,7 @@ function ndg
 end
 
 # Launch application and replace current terminal window
-alias fox='swaymsg exec firefox; exit'
+alias fox='firefox &; disown; exit'
 
 # Binary link
 function blink
