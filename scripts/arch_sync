@@ -165,6 +165,7 @@ install_list=(
 	"xorg-xev"
 	"xorg-xinit"
 	"xorg-xrandr"
+	"xclip"
 
 	# Networking
 	"bind"
