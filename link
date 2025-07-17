@@ -16,6 +16,7 @@ links=(
 	"st/config.h:~/git/github/riridotdev/st/config.h"
 	"x11/.xinitrc:~/.xinitrc"
     "clangd/.clang-format:~/.clang-format"
+    "systemd/keyboard-remapper.service:/etc/systemd/system/multi-user.target.wants/keyboard-remapper.service"
 )
 
 cd "$(dirname "$(realpath "$0")")"
