@@ -16,7 +16,7 @@ links=(
 	"st/config.h:~/git/github/riridotdev/st/config.h"
 	"x11/.xinitrc:~/.xinitrc"
     "clangd/.clang-format:~/.clang-format"
-    "systemd/keyboard-remapper.service:/etc/systemd/system/multi-user.target.wants/keyboard-remapper.service"
+    "systemd/keyboard-remapper.service:/etc/systemd/system/keyboard-remapper.service"
 )
 
 cd "$(dirname "$(realpath "$0")")"
@@ -48,5 +48,5 @@ for link in "${links[@]}"; do
 	fi
 
 	echo "linking ${link_parts[1]} to ${link_parts[0]}"
-	ln -sn "${link_parts[0]}" "${link_parts[1]}"
+	sudo -E ln -sn "${link_parts[0]}" "${link_parts[1]}"
 done
