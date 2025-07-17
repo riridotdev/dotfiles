@@ -1,7 +1,7 @@
 return {
   "hrsh7th/nvim-cmp",
   dependencies = {
-    "hrsh7th/cmp-nvim-lsp",
+    "hrsh7th/cmp-buffer",
   },
   config = function()
     local cmp = require("cmp")
@@ -13,20 +13,20 @@ return {
       preselect = cmp.PreselectMode.None,
 
       sources = cmp.config.sources({
-        { name = "nvim_lsp", },
+        { name = "buffer", },
       }),
 
       window = {
         completion = cmp.config.window.bordered({
           border = border,
           winhighlight = "Normal:CustomCmpItemNormal",
-          col_offset = -4,
+          col_offset = -1,
         }),
         documentation = cmp.config.window.bordered({ border = border }),
       },
 
       formatting = {
-        fields = { "kind", "abbr", "menu" },
+        fields = { "abbr", "menu" },
       },
 
       mapping = {
@@ -35,10 +35,6 @@ return {
         ["<A-i>"] = cmp.mapping.select_prev_item(),
       },
     })
-
-    local capabilities = require("cmp_nvim_lsp").default_capabilities(
-      vim.lsp.protocol.make_client_capabilities()
-    )
 
     cmp.event:on("confirm_done", cmp_autopairs.on_confirm_done())
   end
