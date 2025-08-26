@@ -72,29 +72,6 @@ function blink
     ln -sn (realpath $argv[1]) ~/.local/bin/$argv[2]
 end
 
-# Backup file
-function bu
-    if test $argv[1]
-        set date (date -I)
-        cp -R $argv[1] $argv[1]_backup_$date
-        echo "Backup created: $argv[1]_backup_$date"
-    else
-        echo -e "usage:\n\tpbu [target]"
-    end
-end
-
-
-### HTTP
-# Get
-alias get="http GET"
-# Post
-alias post="http POST"
-
-
-### Go
-# Go mod init
-alias gmi='go mod init github.com/riridotdev/(basename (pwd))'
-
 
 ### Git
 # Git status
@@ -156,17 +133,6 @@ function gbco
     else
         echo -e "usage:\n\tgbco [branch]"
     end
-end
-
-# Github create repo
-function ghcr
-    if test $argv
-        set reponame $argv
-    else
-        set reponame (basename (pwd))
-    end
-    gh repo create $reponame --private --source=.
-    git push --set-upstream origin main
 end
 
 
