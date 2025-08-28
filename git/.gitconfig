@@ -1,9 +1,9 @@
 [user]
-	name = Ryan Lodge
-	email = 13948173+riridotdev@users.noreply.github.com
+    name = Ryan Lodge
+    email = 13948173+riridotdev@users.noreply.github.com
 
 [core]
-	autocrlf = input
+    autocrlf = input
     excludeFiles = ~/.gitignore
     pager = delta
 
@@ -17,7 +17,7 @@
     colorMoved = default
 
 [init]
-	defaultBranch = main
+    defaultBranch = main
 
 [push]
     default = current
@@ -42,11 +42,11 @@
     recurse = true
 
 [credential]
-	helper = cache
+    helper = cache
 [credential "https://github.com"]
-	helper = !gh auth git-credential
+    helper = !gh auth git-credential
 [credential "https://gist.github.com"]
-	helper = !gh auth git-credential
+    helper = !gh auth git-credential
 
 [alias]
     stash-unstaged = "!git commit -m \"TEMP\"; git stash -u; git reset --soft HEAD^"
