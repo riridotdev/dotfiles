@@ -76,14 +76,9 @@ install_list=(
 	"python"
 	"terraform"
 
-	# Language Servers and Tools
-	"gopls"
-	"lua-language-server"
-	"pyright"
-	"ruff"
+	# Language Tools
 	"shellcheck"
 	"shfmt"
-	"typescript-language-server"
 
 	# Language Package Managers
 	"npm"
@@ -155,9 +150,7 @@ install_list=(
 
 	# Third Party
 	"aws-cli"
-	"discord"
 	"firefox"
-	"firefox-developer-edition"
 	"github-cli"
 
 	# Graphical
@@ -169,7 +162,6 @@ install_list=(
 
 	# Networking
 	"bind"
-	"dog"
 	"dnsmasq"
 	"ethtool"
 	"iwd"
@@ -188,10 +180,6 @@ install_list=(
 	"pulseaudio"
 	"xdg-desktop-portal"
 	"xdg-desktop-portal-wlr"
-
-	# Libraries
-	"glfw"
-	"raylib"
 )
 
 for i in "${install_list[@]}"; do
