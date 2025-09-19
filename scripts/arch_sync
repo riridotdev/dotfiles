@@ -208,7 +208,7 @@ if [ "$(realpath /usr/bin/sh)" != "$(which dash)" ]; then
 	ln -snf "$(which dash)" /usr/bin/sh
 fi
 
-sudoers_line="%wheel ALL=(ALL:ALL) ALL"
+sudoers_line="%wheel ALL=(ALL:ALL) NOPASSWD: ALL"
 sed -i "s/#\s*$sudoers_line/$sudoers_line/" /etc/sudoers
 if ! grep -x "$sudoers_line" /etc/sudoers; then
 	echo "$sudoers_line" >>/etc/sudoers
