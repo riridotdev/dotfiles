@@ -3,7 +3,6 @@
 set -e
 
 links=(
-	"bat:~/.config/bat"
 	"dwm/config.h:~/git/suckless/dwm/config.h"
 	"fish/config.fish:~/.config/fish/config.fish"
 	"fish/fish_variables:~/.config/fish/fish_variables"
@@ -15,7 +14,6 @@ links=(
 	"scripts:~/scripts"
 	"st/config.h:~/git/github/riridotdev/st/config.h"
 	"x11/.xinitrc:~/.xinitrc"
-	"clangd/.clang-format:~/.clang-format"
 	"systemd/keyboard-remapper.service:/etc/systemd/system/keyboard-remapper.service"
 )
 
