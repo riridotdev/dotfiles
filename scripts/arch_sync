@@ -104,7 +104,6 @@ install_list=(
 	# CLI Tools
 	"ansible"
 	"archlinux-keyring"
-	"bat"
 	"bc"
 	"cifs-utils"
 	"cloc"

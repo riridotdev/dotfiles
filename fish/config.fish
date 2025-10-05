@@ -38,7 +38,7 @@ alias lta='eza -la -T --git-ignore'
 
 ### File interactions
 # Show file contents
-alias s='bat'
+alias s='cat'
 
 # Edit file
 alias e='nvim'
