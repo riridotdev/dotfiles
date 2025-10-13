@@ -69,24 +69,14 @@ install_list=(
 	# Language Compilers and Runtimes
 	"clang"
 	"gcc"
-	"go"
 	"llvm"
-	"lua"
-	"nodejs"
-	"python"
-	"terraform"
 
 	# Language Tools
 	"shellcheck"
 	"shfmt"
 
-	# Language Package Managers
-	"npm"
-
 	# Debuggers and Analysis
-	"delve"
 	"gdb"
-	"valgrind"
 
 	# Build Tools
 	"base-devel"
@@ -102,55 +92,32 @@ install_list=(
 	"neovim"
 
 	# CLI Tools
-	"ansible"
 	"archlinux-keyring"
 	"bc"
-	"cifs-utils"
-	"cloc"
 	"coreutils"
-	"dmidecode"
-	"expect"
 	"eza"
-	"fd"
 	"file"
-	"freerdp"
 	"fzf"
 	"git"
-	"git-delta"
 	"gnupg"
 	"htop"
-	"httpie"
 	"jq"
 	"libva-utils"
 	"lsof"
 	"man-db"
 	"man-pages"
-	"perf"
-	"postgresql"
-	"pwgen"
 	"ripgrep"
 	"rsync"
 	"strace"
 	"sudo"
 	"sysstat"
-	"tree"
 	"unzip"
 	"which"
 	"zip"
 	"zoxide"
 
-	# Virtualisation
-	"docker"
-	"docker-compose"
-	"libvirt"
-	"qemu-base"
-	"virt-install"
-	"virt-viewer"
-
 	# Third Party
-	"aws-cli"
 	"firefox"
-	"github-cli"
 
 	# Graphical
 	"xorg-server"
@@ -160,25 +127,22 @@ install_list=(
 	"xclip"
 
 	# Networking
-	"bind"
-	"dnsmasq"
-	"ethtool"
 	"iwd"
-	"mtr"
 	"net-tools"
-	"nmap"
 	"openbsd-netcat"
 	"openssh"
-	"openvpn"
 	"traceroute"
-	"whois"
-	"wireshark-qt"
 
 	# Audio
 	"alsa-utils"
-	"pulseaudio"
+	"pipewire"
+	"pipewire-audio"
+	"pipewire-pulse"
 	"xdg-desktop-portal"
-	"xdg-desktop-portal-wlr"
+
+	# Bluetooth
+	"bluez"
+	"bluez-utils"
 )
 
 for i in "${install_list[@]}"; do
@@ -199,10 +163,6 @@ if lscpu | grep "GenuineIntel"; then
 	fi
 fi
 
-if ! systemctl is-enabled libvirtd; then
-	systemctl enable libvirtd
-fi
-
 if [ "$(realpath /usr/bin/sh)" != "$(which dash)" ]; then
 	ln -snf "$(which dash)" /usr/bin/sh
 fi
@@ -218,9 +178,7 @@ if ! id ryan; then
 fi
 
 groups=(
-	"docker"
-	"libvirt"
-	"wireshark"
+	"audio"
 	"wheel"
 )
 for group in "${groups[@]}"; do
@@ -233,7 +191,6 @@ su ryan <<'EOF'
 default_dirs=(
     "~/dev"
     "~/git"
-    "~/mount"
 )
 
 for dir in "${default_dirs[@]}"; do
