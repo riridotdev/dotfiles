@@ -216,8 +216,6 @@ for git_repo in "${git_repos[@]}"; do
 done
 
 "${HOME}"/git/github/riridotdev/dotfiles/link
-
-bat cache -b
 EOF
 
 if [ ! -f /usr/local/bin/dwm ]; then
